@@ -14,7 +14,7 @@ Spree::Product.class_eval do
   end
 
   def stock_items_for_option_value(value)
-    stock_items.includes(:variant => :option_values).where("spree_option_values.id = #{value.id}")
+    stock_items.joins(:variant => :option_values).where("spree_option_values.id = #{value.id}")
   end
 
   def option_value_backorderable?(value)
