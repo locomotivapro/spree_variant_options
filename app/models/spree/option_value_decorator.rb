@@ -12,6 +12,5 @@ Spree::OptionValue.class_eval do
     image_file_name && !image_file_name.empty?
   end
 
-  scope :for_product, lambda { |product| select("DISTINCT #{table_name}.*").where("spree_option_values_variants.variant_id IN (?)", product.variant_ids).joins(:variants) }
-
+  scope :for_product, lambda { |product| select("DISTINCT #{table_name}.*").joins(:option_value_variants).where('spree_option_value_variants.variant_id IN (?)', product.variant_ids) }
 end
