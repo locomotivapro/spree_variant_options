@@ -20,6 +20,10 @@ Spree::Product.class_eval do
   def option_value_backorderable?(value)
     stock_items_for_option_value(value).where(:backorderable => true).any?
   end
+  
+  def option_value_can_supply?(value)
+    option_value_backorderable?(value) || stock_items_for_option_value(value).sum(:count_on_hand) > 0
+  end
 
   def variant_options_hash
     return @_variant_options_hash if @_variant_options_hash
