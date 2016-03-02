@@ -9,7 +9,7 @@ Spree::Product.class_eval do
   end
 
   def variants_for_option_value(value)
-    @_variant_option_values ||= variants.includes(:option_values).all
+    @_variant_option_values ||= variants.active.includes(:option_values).all
     @_variant_option_values.select { |i| i.option_value_ids.include?(value.id) } # TODO ugly?
   end
 
@@ -20,7 +20,7 @@ Spree::Product.class_eval do
   def option_value_backorderable?(value)
     stock_items_for_option_value(value).where(:backorderable => true).any?
   end
-  
+
   def option_value_can_supply?(value)
     option_value_backorderable?(value) || stock_items_for_option_value(value).sum(:count_on_hand) > 0
   end
@@ -28,7 +28,7 @@ Spree::Product.class_eval do
   def variant_options_hash
     return @_variant_options_hash if @_variant_options_hash
     hash = {}
-    variants.includes(:option_values).each do |variant|
+    variants.active.includes(:option_values).each do |variant|
       variant.option_values.each do |ov|
         otid = ov.option_type_id.to_s
         ovid = ov.id.to_s

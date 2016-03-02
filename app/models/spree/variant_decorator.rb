@@ -1,5 +1,5 @@
 Spree::Variant.class_eval do
-  
+
   include ActionView::Helpers::NumberHelper
 
   def to_hash
@@ -12,5 +12,5 @@ Spree::Variant.class_eval do
       :backorderable => self.stock_items.where(:backorderable => true).any?
     }
   end
-    
+
 end
