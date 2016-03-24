@@ -1,0 +1,8 @@
+<script>
+$(document).ready(function(){
+  $.clearFileFields = function() {
+    $('[type=file]').each(function(){ if ($(this).val() == '') { $(this).remove() } })
+  }
+  $('.edit_option_type').on('submit', $.clearFileFields)
+})
+</script>

@@ -8,6 +8,8 @@ Spree::OptionValue.class_eval do
     :url           => "/spree/option_values/:id/:style/:basename.:extension",
     :path          => ":rails_root/public/spree/option_values/:id/:style/:basename.:extension"
 
+  validates_attachment_content_type :image, content_type: /\Aimage/
+
   def has_image?
     image_file_name && !image_file_name.empty?
   end

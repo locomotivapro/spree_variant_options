@@ -29,6 +29,12 @@ Deface::Override.new(:virtual_path   => "spree/admin/option_types/_option_value_
                      :name           => "admin_option_value_fields",
                      :disabled       => false,
                      :insert_after   => "td.presentation") do
-                     "<td><%= image_tag f.object.image.url(:small) if f.object.has_image? %></td>
+                       "<td><%= image_tag f.object.image.url(:small) if f.object.has_image? %></td>
                       <td><%= f.file_field :image %></td>"
-end
+                     end
+
+Deface::Override.new(:virtual_path   => "spree/admin/option_types/edit",
+                    :name           => "clear_fields_script",
+                    :disabled       => false,
+                    :insert_after   => "table",
+                    :partial        => "spree/admin/option_types/multipart_script")
